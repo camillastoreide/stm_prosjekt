@@ -5,6 +5,22 @@
 #Handling: Gå til oppgave 1 (oppgave1), usynligKnapp.png, 0,0
 #Slutt:
 
+#Start: oppgave1
+#Bilde: bakgrunn_alle.png
+#Handling: Hugo, hugo.png, 200, 280
+#Handling: Bokstaven_H, h_bokstav.png, 500,80
+#Lyd: h_bokstav.m4a
+#Handling: Gå til neste (oppgave2), riktigPåoppgave1=1, gronn_pil.png, 2343,45
+#Handling: Gå til neste (oppgave2), riktigPåoppgave1=0, rod_pil.png, 2343,80
+#Slutt:
 
-
-
+#Start: oppgave2
+#Bilde: bakgrunn_alle.png
+#Handling: Hugo, liten_hugo.png, 200, 280
+#Bilde: stor_hugo.png
+#Bilde: gronn_pil.png
+#Bilde: rod_pil.png
+#Lyd: finn_ut hvem_som_er_hoyest.m4a
+#Handling: Gå til neste (oppgave3), riktigPåoppgave1=1, gronn_pil, 2343,45
+#Handling: Gå til neste (oppgave3), riktigPåoppgave1=0, rod_pil.png, 2343,80
+#Slutt:
