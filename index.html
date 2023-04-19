@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>STM Prosjekt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+
+  <style>
+    .drag {
+      position: absolute;
+    }
+
+    .speaker {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+
+    #dice {
+      position: absolute;
+      background: url(terning/dice.png) no-repeat;
+      min-height: 150px;
+      min-width: 142px;
+      height: 150px;
+      width: 142px;
+    }
+
+    .dOne {
+      background-position: -725px !important;
+    }
+
+    .dTwo {
+      background-position: -580px !important;
+    }
+
+    .dThree {
+      background-position: -435px !important;
+    }
+
+    .dFour {
+      background-position: -290px !important;
+    }
+
+    .dFive {
+      background-position: -145px !important;
+    }
+
+    .dSix {
+      background-position: 0px !important;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .maxImage {
+      max-width: 1275px;
+    }
+
+    .invisible {
+      opacity: 0;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div id="container">
+
+  </div>
+
+  <script>
+    const MANUSCRIPT_FILE = "program.txt";
+    var program_source = null;
+    var timed_msg = null;
+    var program = null;
+    var soundQue = null;
+    var programIndex = 0;
+    var audio = null;
+    var currentSection = null;
+    var currentCount = 0;
+    var ansList = null;
+    var dice = null;
+    var state = [];
+
+    let keywords = [{
+        key: "Kamera",
+        reg: /\#\s*Kamera\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "Kameraknapp",
+        reg: /\#\s*Kameraknapp\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "VelgEn",
+        reg: /\#\s*VelgEn\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "Lagre",
+        reg: /\#\s*Lagre\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "Tell",
+        desc: "Counts up and down items created and removed (using drag and drop)",
+        reg: /\#\s*Tell\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "Neste",
+        reg: /\#\s*Neste\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "TerningPos",
+        reg: /\#\s*TerningPos\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "Start",
+        reg: /\#\s*Start\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "Lyd",
+        reg: /\#\s*Lyd\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "Bilde",
+        reg: /\#\s*Bilde\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "Handling",
+        reg: /\#\s*Handling\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "Bevegelse",
+        reg: /\#\s*Bevegelse\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "Terning",
+        reg: /\#\s*Terning\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "Nedtelling",
+        reg: /\#\s*Nedtelling\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "Drag",
+        reg: /\#\s*Drag\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "Slutt",
+        reg: /\#\s*Slutt\s*\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "DragForbli",
+        reg: /\#\s*DragForbli\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "DragRekt",
+        reg: /\#\s*DragRekt\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "DragAlternativ",
+        reg: /\#\s*DragAlternativ\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "DragMål",
+        reg: /\#\s*DragMål\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "LydForRiktig",
+        reg: /\#\s*LydForRiktig\s*:\s*(.*)/,
+        atomic: true
+      },
+      {
+        key: "LydForFeil",
+        reg: /\#\s*LydForFeil\s*:\s*(.*)/,
+        atomic: true
+      }
+
+    ];
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+      loadFile(MANUSCRIPT_FILE, (success, data) => {
+        if (success) {
+          parseProgram(data);
+          programIndex = 0;
+          //gotoNext("lbl") //for jumping to diffrent location in program
+          renderProgramSection(JSON.parse(JSON.stringify(program[programIndex])));
+        } else {
+          showFeedBack("Kunne ikke laste program fil, er du sikker på at det ligger en " + MANUSCRIPT_FILE +
+            " fil i public mappen", "alert-danger", false);
+        }
+      });
+    });
+
+    function parseProgram(programData) {
+      if (programData == "" || programData == undefined) {
+        showFeedBack("Ser ikke ut som du har skrevet et Barneprat program", "alert-warning", false);
+        return;
+      }
+      program_source = programData;
+      program = [];
+
+      let source = [];
+      let section = null;
+      programData.split("\n").forEach((item) => {
+        if (item.indexOf("//") != 0) {
+          if (item != "" && item.length > 1) {
+            if (section == null) {
+              section = [];
+            }
+            section.push(item);
+          } else {
+            if (section != null) {
+              source.push(section);
+              section = null;
+            }
+          }
+        }
+      });
+
+      section = null;
+      source.forEach((sceen) => {
+        section = null;
+        sceen.forEach((item) => {
+
+          let cmdKey = extractCommand(item);
+          console.log("cmdKey: " + cmdKey)
+          let cmd = getCommandSemantics(cmdKey)
+
+          if (cmd == null) {
+            showFeedBack("Feil i : " + item, "alert-danger", false);
+          } else {
+            section = section ? section : {};
+            let match = cmd.reg.exec(item);
+
+            if (match) {
+              if (section[cmdKey] != undefined) {
+                if (!Array.isArray(section[cmdKey])) {
+                  section[cmdKey] = [section[cmdKey]];
+                }
+                section[cmdKey].push(match[1].trim());
+              } else {
+                section[cmdKey] = match[1].trim();
+              }
+            } else {
+              showFeedBack("Feil i : " + item, "alert-danger", false);
+            }
+          }
+        })
+        program.push(section);
+        section = null;
+
+      });
+
+    }
+
+    function applyState(section) {
+      console.log("Applying state")
+      for (let keyWord in section) {
+        if (section.hasOwnProperty(keyWord)) {
+
+          let item = section[keyWord];
+          if (typeof (section) == "string") {
+            item = section;
+          }
+
+          if (Array.isArray(item)) {
+
+            let output = [];
+            for (var index = 0; index < item.length; index++) {
+              let newItem = applyState(item[index]);
+              output[index] = newItem;
+            }
+            section[keyWord] = output;
+          } else {
+
+            var regex = /\[([^\W)]*)\]/gm;
+            let out = item;
+            let m;
+
+            while ((m = regex.exec(item)) !== null) {
+              if (m.index === regex.lastIndex) {
+                regex.lastIndex++;
+              }
+
+              out = out.replace(m[0], state[m[1]]);
+              m.forEach((match, groupIndex) => {
+                console.log(`Found match, group ${groupIndex}: ${match}`);
+              });
+            }
+
+            if (typeof (section) == "string") {
+              section = out;
+            } else {
+              section[keyWord] = out;
+            }
+          }
+        }
+      }
+      return section;
+    }
+
+    function chooseItemsToSave(raw){
+      console.log(raw)
+      if (!Array.isArray(raw)) {
+        raw = [raw];
+      }
+
+      raw.forEach(st => {
+        if (st.indexOf("=") > 0) {
+          st = st.split("=");
+          let key = st[0].trim();
+          let values = st[1].split(",");
+          state[key] = values[Math.round((values.length-1) * Math.random())].trim() ;
+          console.log("State " + key + " set to " + state[key]);
+
+        } else {
+          console.error("This is not a valid state " + state)
+        }
+      });
+
+    }
+
+    
+    function saveState(raw) {
+      if (!Array.isArray(raw)) {
+        raw = raw.split(",");
+      }
+      raw.forEach(st => {
+        if (st.indexOf("=") > 0) {
+          add = st.split("+");
+		  minus = st.split("-");
+		  mul = st.split("*");
+		  div = st.split("/");
+		  
+		  st = st.split("=");
+		  
+		  let key = st[0].trim();
+		  if(add.length > 1){
+			state[key] = parseInt(state[key], 10) + parseInt(add[1], 10);
+			console.log("Updated state " + key + " set to " + state[key]);
+		  }
+		  else if(minus.length > 1){
+			state[key] = parseInt(state[key], 10) - parseInt(minus[1], 10);
+			console.log("Updated state " + key + " set to " + state[key]);
+		  }
+		  else if(mul.length > 1){
+			state[key] = parseInt(state[key], 10) * parseInt(mul[1], 10);
+			console.log("Updated state " + key + " set to " + state[key]);
+		  }
+		  else if(div.length > 1){
+			state[key] = parseInt(state[key], 10) / parseInt(div[1], 10);
+			console.log("Updated state " + key + " set to " + state[key]);
+		  }
+		  else
+		  {
+			  let value = st[1].trim();			    
+			  state[key] = value;
+			  console.log("State " + key + " set to " + value);
+		  }
+		  
+        } else {
+          console.error("This is not a valid state " + state)
+        }
+      });
+
+    }
+
+    function findProgramSection(searchKey, value) {
+      let programSection = null;
+
+      program.forEach((item) => {
+        if (item[searchKey] == value) {
+          programSection = item;
+        }
+      });
+
+      return programSection;
+    }
+
+    function gotoNext(next, lyd, state) {
+      console.log("Neste " + next);
+      if (lyd) {
+        playSound(lyd);
+      }
+
+      if (next.trim() == "feil" || next == "undefined") {
+        return;
+      }
+
+      let s = findProgramSection("Start", next);
+      if (s) {
+        renderProgramSection(JSON.parse(JSON.stringify(s)));
+      } else {
+        showFeedBack("Finner ingen scene med navn " + next, "alert-danger", false);
+      }
+    }
+
+    function selected(ans) {
+
+      if (currentSection.Riktig.indexOf(ans) >= 0) {
+
+        if (currentSection.Tell != undefined && currentSection.Tell == "Nei") {
+          gotoNext(currentSection.Neste);
+          return;
+        }
+
+        currentCount++;
+        sections = currentSection.Riktig.split(",")
+        if (sections.length <= currentCount) {
+          gotoNext(currentSection.Neste);
+        }
+      } else {
+        if (currentSection.Feil) {
+          let s = currentSection.Feil.split(",");
+          s = s[s.length - 1];
+          if (s.indexOf("mp3") > +1) {
+            playSound(s);
+          }
+        }
+      }
+
+    }
+
+    function selectedCustom(ans) {
+
+      if (currentSection.Riktig.indexOf(ans) >= 0) {
+
+        let r = currentSection.Riktig.split(",");
+        let i = -1;
+
+        r.forEach((item, index) => {
+          if (item.trim().toLowerCase() == ans.trim().toLowerCase()) {
+            i = index;
+          }
+        })
+
+        if (i > -1) {
+          i++;
+          playSound(r[i]);
+        } else {
+          showFeedBack("Finner ingen lyd for " + ans, "alert-danger", false);
+        }
+
+        if (ansList.indexOf(ans) == -1) {
+          currentCount++;
+          ansList.push(ans);
+          let b = currentSection.Bakgrunn.split(",")[currentCount].trim();
+          document.getElementById("imgBackground").src = "img/" + b;
+        }
+
+        if (ansList.length >= 8) {
+          setTimeout(function () {
+            gotoNext(currentSection.Neste);
+          }, 3000)
+        }
+      }
+
+    }
+
+    function renderProgramSection(program) {
+
+      program = applyState(program);
+      //Linje 400, stopper lydene som kommer fra handlingknappene, som også har 'Gå til' funksjonalitet. 
+      //stopSound();
+      currentCount = 0;
+      ansList = [];
+      let element = getTemplate("oppgave");
+      let container = document.getElementById("container");
+      clear(container);
+
+      let handlinger = "";
+      if (program.Handling) {
+        if (Array.isArray(program.Handling)) {
+          program.Handling.forEach((h) => {
+            let d = createHandlingSegment(h);
+            let t = getTemplate("handling");
+            t = applyModelToTemplate(d, t);
+            t = applyConditionalsToTemplate(d, t);
+            handlinger += t;
+          })
+        } else {
+          let d = createHandlingSegment(program.Handling);
+          let t = getTemplate("handling");
+          t = applyModelToTemplate(d, t);
+          t = applyConditionalsToTemplate(d, t);
+          handlinger += t;
+        }
+      }
+      element = applyModelToTemplate(program, element);
+      element = applyConditionalsToTemplate(program, element);
+      element = element.replace("[Handlinger/]", handlinger);
+      element = createTimer(program, element);
+      element = createDragAndDrop(program, element);
+      element = createDice(program, element);
+      element = createTargets(program, element);
+      element = createBevegelser(program, element);
+      element = createElement(element);
+      container.appendChild(element);
+      currentSection = program;
+
+      if (program.Kamera) {
+        setupCamera(program);
+      }
+
+      if (program.Terning) {
+        setupDice();
+      }
+
+      if (program.Lagre) {
+        saveState(program.Lagre);
+      }
+
+      if(program.VelgEn){
+        chooseItemsToSave(program.VelgEn)
+      }
+
+      if (program.Lyd) {
+        playSound(program.Lyd);
+      }
+
+    }
+
+    // Camera -------------------------------------------------------------
+
+    function setupCamera(program) {
+      let position = program.Kamera.split(",")
+      let video = document.getElementById("liveVideo")
+      if (position.length < 4) {
+        video.setAttribute("style",
+          `width:${window.screen.width}px; height:${window.screen.height}px; left:0px; top:0px; position: absolute;`);
+      } else {
+        video.setAttribute("style",
+          ` height:${position[0]}px; width:${position[1]}px;left:${position[2]}px; top:${position[3]}px; position: absolute; `
+          );
+      }
+
+      if (program.Kameraknapp) {
+        let button = document.getElementById("cameraButton");
+        position = program.Kameraknapp.split(",")
+        if (position.length >= 2) {
+          button.setAttribute("style", `left:${position[0]}px; top:${position[1]}px; position: absolute; z-index:999`);
+        }
+      }
+    }
+
+
+    var cameraStream = null;
+
+    function showVideo() {
+
+      if (cameraStream) {
+        // Slår av kameraet ved å trykke på knappen igjen
+        var track = cameraStream.getTracks()[0];
+        track.stop();
+        cameraStream = null;
+        return
+      }
+
+      var video = document.getElementById('liveVideo');
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        video.setAttribute('autoplay', '');
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
+        // Mulig å manipulere Z Index her
+        var constraints = {
+          audio: false,
+          video: {
+            facingMode: 'user'
+          }
+        }
+
+        navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+          cameraStream = stream;
+          video.srcObject = stream;
+          video.play();
+        });
+      }
+    }
+
+    // Bevegelse
+    function createBevegelser(program, element) {
+      let output = "";
+      if (Array.isArray(program.Bevegelse)) {
+        program.Bevegelse.forEach(raw => {
+          output += createBevegelse(raw);
+        });
+
+      } else if (program.Bevegelse) {
+        output = createBevegelse(program.Bevegelse);
+      }
+      element = element.replace("[Bevegelse/]", output)
+      return element;
+    }
+
+    function createBevegelse(raw) {
+      let target = raw.split(",")
+      let img = target[0].trim();
+      let sound = target[1].trim();
+      let x = target[2].trim();
+      console.log(x);
+      let y = target[3].trim();
+      console.log(y);
+      return "<img  class='bevegelse' src='img/" + img + "'  style='left:" + x +
+        "px;top:" + y + "px;position:absolute' data-sound='" + sound + "' onclick='startBevegelse(event)'>"
+    }
+
+    // Drag targets
+    function createTargets(program, element) {
+
+      let output = "";
+
+      if (Array.isArray(program.DragMål)) {
+        program.DragMål.forEach(raw => {
+          output += createTarget(raw);
+        });
+
+      } else if (program.DragMål) {
+        output = createTarget(program.DragMål);
+      }
+      element = element.replace("[DragMål/]", output)
+      return element;
+    }
+
+    function createTarget(raw) {
+      let target = raw.split(",")
+      let name = target[0].trim();
+      let img = target[1].trim();
+      let x = target[2].trim();
+      let y = target[3].trim();
+      return "<img  alt='" + name + "' id='target-" + name + "' class='drag' src='img/" + img + "'  style='left:" + x +
+        "px;top:" + y + "px' />"
+    }
+
+    // Timer --------------------------------------------------------------
+
+    function createTimer(program, element) {
+      //#Nedtelling JA/NEI, tid i sekunder, bilde, posx, posy, sounds
+
+      let output = "";
+      if (program.Nedtelling) {
+        console.log('Nedtelling');
+        let raw = program.Nedtelling.split(",");
+        let auto = raw[0].trim();
+        auto = (auto.toLowerCase() === "ja") ? true : false;
+        let time = raw[1].trim();
+
+        if (raw.length > 3) {
+
+          let bilde = raw[2] ? raw[2].trim() : "";
+          let x = raw[raw.length - 2] ? raw[raw.length - 2].trim() : 0;
+          let y = raw[raw.length - 1] ? raw[raw.length - 1].trim() : 0;
+
+          let obj = {
+            x: x,
+            y: y,
+            Bilde: bilde,
+            Tid: time
+          };
+
+          let t = getTemplate("timer");
+          t = applyModelToTemplate(obj, t);
+          t = applyConditionalsToTemplate(obj, t);
+
+          output = t;
+        }
+
+        if (auto) {
+          startTimer(time);
+        }
+
+      }
+
+      element = element.replace("[Nedtelling/]", output);
+      return element;
+    }
+
+    var countDownTime = 0;
+    var countInterval = null;
+
+    function startTimer(tid) {
+
+      countDownTime = tid * 1000;
+      countInterval = setInterval(function () {
+        countDownTime--;
+        if (countDownTime <= 0) {
+          clearInterval(countInterval);
+          let raw = currentSection.Nedtelling.split(",");
+          if (currentSection.Neste) {
+            gotoNext(currentSection.Neste)
+          }
+          if (raw.length > 2) {
+            playSound(raw[5] + "," + raw[6]);
+          }
+        }
+
+      }, 10);
+    }
+    // Drag and Drop ------------------------------------------------------
+    var mouseX = 0;
+    var mouseY = 0;
+    var clickTaerget = null;
+    var canKillClickTarget = false;
+
+    var created = 0;
+
+    $(document).mousemove(function (e) {
+      mouseX = e.pageX;
+      mouseY = e.pageY;
+      if (clickTaerget) {
+        let w = clickTaerget.width() * 0.5;
+        let h = clickTaerget.height() * 0.5;
+        clickTaerget.css("left", mouseX - w);
+        clickTaerget.css("top", mouseY - h);
+      }
+    });
+
+    $(document).click(function (e) {
+      if (clickTaerget && canKillClickTarget) {
+        testTarget(clickTaerget);
+        clickTaerget = null;
+        console.log("Click target tatt bort av dokument");
+      }
+      canKillClickTarget = true;
+    });
+
+    function testTarget(item) {
+      let el = item[0]
+      let target = document.getElementById(el.dataset.target);
+      if (target) {
+        let rect1 = el.getBoundingClientRect();
+        let rect2 = target.getBoundingClientRect();
+        var overlap = !(rect1.right < rect2.left ||
+          rect1.left > rect2.right ||
+          rect1.bottom < rect2.top ||
+          rect1.top > rect2.bottom)
+
+        return overlap
+      }
+
+      return false;
+    }
+
+    function createDragAndDrop(program, element) {
+
+      let output = "";
+      if (program.DragAlternativ) {
+
+        let parseDrag = raw => {
+          let components = raw.split(",")
+          let name = components[0].trim();
+          let target = components[1].trim();
+          let img = components[2].trim();
+          let sound = components[3].trim()
+          let x = components[4].trim();
+          let y = components[5].trim();
+          let rect = [x, y];
+          let count = 1;
+          if (components.length > 6) {
+            let w = components[6].trim();
+            let h = components[7].trim();
+            count = components[8].trim();
+            rect = [x, y, w, h];
+          }
+
+          for (var i = 0; i < count; i++) {
+            let pos = GetRandomPosInRect(rect);
+            if (program.Tell) {
+              if (program.Tell.trim() == name) {
+                created++;
+              }
+            } else {
+              created++;
+            }
+			console.log(pos);
+            let dragObject = "<img  alt='" + name + "' data-target='target-" + target +
+              "' onclick='startDrag(event)' class='drag' src='img/" + img.trim() + "'  style='left:" + pos.x +
+              "px;top:" + pos.y + "px;position:absolute' data-sound='" + sound + "' />"
+            output += dragObject;
+          }
+        }
+
+        if (Array.isArray(program.DragAlternativ)) {
+          program.DragAlternativ.forEach(raw => {
+            parseDrag(raw);
+          });
+        } else {
+          parseDrag(program.DragAlternativ);
+        }
+
+      }
+
+      element = element.replace("[DragAndDrop/]", output);
+      return element;
+    }
+
+    function startDrag(ev) {
+      if (clickTaerget == null) {
+        canKillClickTarget = false;
+        clickTaerget = $(ev.target);
+
+      } else {
+        let hit = testTarget(clickTaerget);
+
+        if (hit) {
+
+          let remove = true;
+          let sound = clickTaerget[0].getAttribute("data-sound").trim();
+
+          if (currentSection.Tell) {
+            let atr = clickTaerget[0].getAttribute("alt").trim();
+
+            if (currentSection.Tell.trim() == atr) {
+              created--;
+            } else {
+              remove = false;
+            }
+          } else {
+            created--;
+          }
+
+          if (remove) {
+            if (sound && sound.length > 4) {
+              playSound(sound);
+            } else if (currentSection.LydForRiktig) {
+              playSound(pickRandomListElement(currentSection.LydForRiktig.split(",")));
+            }
+          } else {
+            if (currentSection.LydForFeil) {
+              playSound(currentSection.LydForFeil);
+            }
+          }
+
+          if (currentSection.DragForbli == undefined && remove) {
+            clickTaerget[0].parentNode.removeChild(clickTaerget[0]);
+          }
+        }
+		else
+		{
+		    if (currentSection.LydForFeil) {
+              playSound(currentSection.LydForFeil);
+		}
+		}
+
+        clickTaerget = null;
+
+        if (created <= 0) {
+          gotoNext(currentSection.Neste)
+        }
+
+      }
+
+    }
+
+    function startBevegelse(env) {
+      let sound = env.target.getAttribute("data-sound");
+      playSound(sound);
+      env.target.setAttribute("src", env.target.getAttribute("src"));
+    }
+
+    function GetRandomPosInRect(rect) {
+      let minX = rect[0].trim();
+      let minY = rect[1].trim();
+
+      if (rect.length > 2) {
+        let width = rect[2].trim();
+        let height = rect[3].trim();
+
+        let x = Math.floor(((width - minX) * Math.random()) + minX);
+        let y = Math.floor(((height - minY) * Math.random()) + minY);
+
+        return {
+          x: x,
+          y: y
+        };
+      }
+      return {
+        x: rect[0],
+        y: rect[1]
+      };
+    }
+
+    function createHandlingSegment(handling) {
+      let all = handling.split(",");
+      let h = {};
+      all.forEach((item) => {
+        if (item.indexOf("Gå til") > -1) {
+          let target = item.match(/\(([^\)]*)\)/);
+          let text = "";
+
+          if (target == null) {
+            target = item.replace("Gå til", "").trim();
+            text = target;
+          } else {
+            target = target[target.length - 1];
+            text = item.replace("Gå til", "").replace(/\([^]*\)/, "").trim();
+          }
+
+          h.Neste = target;
+          h.Tekst = text;
+        } else if (item.indexOf("=") > -1) {
+          console.log("Found state")
+          if (h.Lagre == undefined) {
+            h.Lagre = [];
+          }
+          h.Lagre.push(item.trim());
+        } else if (item.indexOf(".png") > -1 || item.indexOf(".jpg") > -1 || item.indexOf(".gif") > -1) {
+          console.log("Found image");
+          h.Bilde = item.trim();
+        } else if (item.indexOf(".mp3") > -1 || item.indexOf(".wav") > -1) {
+          h.Lyd = item.trim();
+          console.log("Found Sound");
+        }
+      });
+
+      if (all.length >= 4) {
+        h.x = all[all.length - 2];
+        h.y = all[all.length - 1];
+      }
+
+      return h;
+    }
+
+    function getCommandSemantics(key) {
+
+      for (let index in keywords) {
+        if (keywords[index].key == key) {
+          return keywords[index];
+        }
+      }
+      return null;
+    }
+
+    function extractCommand(statment) {
+      let matches = null;
+      if (statment && statment !== "") {
+        matches = (/\#(\s*(.*)\s*\:|\s*(.*))/gmi).exec(statment);
+        if (matches) {
+          console.log(statment);
+          matches = matches.reduce((acc, val) => {
+            return val ? val : acc;
+          });
+        }
+      }
+
+      return matches;
+    }
+
+    function showFeedBack(msg, type, timed) {
+      //type == alert- success/info/warning/danger
+      var template = getTemplate("feedback");
+      var data = {
+        "msg": msg,
+        "type": type
+      };
+      console.log(data);
+      template = createElement(applyModelToTemplate(data, template));
+      document.body.prepend(template);
+
+      if (timed) {
+        timed_msg = template;
+        setTimeout(function (timed_msg) {
+          timed_msg.remove();
+          timed_msg = null;
+        }, 3500, template);
+      }
+
+    }
+
+    function loadFile(filePath, onComplete) {
+
+      fetch(filePath)
+        .then(function (response) {
+          return response.text();
+        })
+        .then(function (text) {
+          onComplete(true, text);
+        });
+    }
+
+    function parseElementContentToDataModel(elementSelector) {
+      var data = null;
+      var dataSource = getElement(elementSelector);
+      if (dataSource !== null) {
+        data = JSON.parse(dataSource.textContent);
+      }
+      return data;
+    }
+
+    function applyModelToTemplate(model, template) {
+      var keys = extractPlaceholdersFromSource(template);
+      for (var i = 0; i < keys.length; i++) {
+        template = template.replace(new RegExp("({{" + keys[i] + "}}[\S\s]*{{/" + keys[i] + "}}|{{" + keys[i] + "/}})",
+          "gmi"), model[keys[i]]);
+      }
+      return template;
+    }
+
+    function applyConditionalsToTemplate(model, template) {
+      const regex = /{{#if ([^\}]*)}}([^\#]*){{\/#if}}/gmi;
+      let m
+      let output = template;
+      while ((m = regex.exec(template)) !== null) {
+
+        if (m.index === regex.lastIndex) {
+          regex.lastIndex++;
+        }
+
+        if (m && m.length == 3) {
+          var conditional = m[1];
+          var value = m[2];
+          if ((model[conditional] != undefined && model[conditional] != null && model[conditional] != "")) {
+            output = output.replace(m[0], value);
+          } else if (this[conditional] != undefined && this[conditional] != null && this[conditional] != "") {
+            if (this[conditional] == true) {
+              output = output.replace(m[0], value);
+            }
+          } else {
+            var commands = ["complete"]
+            output = output.replace(m[0], "");
+          }
+        }
+
+      }
+
+      return output;
+    }
+
+    function extractPlaceholdersFromSource(source) {
+      var pattern = /({{\w+?}}([\S\s]*?){{\/\w+?}}|{{(\w+?)\/}})/gmi;
+      var results = []
+      var match = null;
+      while ((match = pattern.exec(source)) !== null) {
+        var key = match[match.length - 1];
+        if (results.indexOf(key) == -1) {
+          results.push(key);
+        }
+      }
+      return results;
+    }
+
+    function getTemplate(templateName) {
+      var selector = 'script[data-display-template="' + templateName + '"]';
+      var element = getElement(selector);
+      return element.textContent;
+    }
+
+    function getElement(selector) {
+      return document.querySelector(selector);
+    }
+
+    function createElement(elementString) {
+      var el = document.createElement("div");
+      el.innerHTML = elementString;
+      return el
+    }
+
+    function clear(element) {
+      element.innerHTML = "";
+    }
+
+    function insertAfter(newElement, targetElement) {
+      var parent = targetElement.parentNode;
+      if (parent.lastchild == targetElement) {
+        parent.appendChild(newElement);
+      } else {
+        parent.insertBefore(newElement, targetElement.nextSibling);
+      }
+    }
+
+    function playSound(files) {
+
+      if (files) {
+        stopSound();
+        soundQue = files.split(",");
+      }
+
+      var file = soundQue.shift();
+      if (file) {
+        audio = new Audio("sound/" + file.trim());
+        audio.addEventListener("load", function () {
+          audio.play();
+        }, true);
+        audio.onended = function () {
+          playSound();
+        };
+        audio.autoplay = true;
+      }
+    }
+
+    function stopSound() {
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+        audio = null;
+        soundQue = null;
+      }
+    }
+
+    function shuffle(a) {
+      var j, x, i;
+      for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+      }
+
+      return a;
+    }
+
+    function pickRandomListElement(list) {
+      if (Array.isArray(list)) {
+        let rnd = Math.round((list.length - 1) * Math.random())
+        return list[rnd].trim();
+      }
+      return list.trim();
+    }
+
+    function togleButtons(target) {
+      let el = document.getElementById(target);
+      if (el.classList.contains("invisible")) {
+        el.classList.remove("invisible");
+      } else {
+        el.classList.add("invisible");
+      }
+    }
+  </script>
+
+  <script id="Terning">
+    /// TERNING ---------------------------------
+
+    const DICE_FACE_CSS_CLASSES = ["dOne", "dTwo", "dThree", "dFour", "dFive", "dSix"];
+    var diceInterval = null;
+    var diceValue = 0;
+    var countDown = 0;
+
+    function createDice(program, element) {
+      if (program.Terning) {
+        let pos = program.TerningPos.split(",");
+        let tern = '<div id="dice" class="dOne" style="top:' + pos[0].trim() + 'px;left:' + pos[1].trim() +
+          'px"></div>';
+        element = element.replace("[Terning/]", tern);
+      } else {
+        element = element.replace("[Terning/]", "");
+      }
+      return element;
+    }
+
+    function setupDice() {
+      let dice = document.getElementById("dice");
+      setDiceFace(0);
+
+      dice.addEventListener("click", function (e) {
+        countDown = 10;
+        diceInterval = setInterval(function () {
+          let dice = document.getElementById("dice");
+          dice.classList.remove(DICE_FACE_CSS_CLASSES[diceValue]);
+          setDiceFace(GenerateNewDiceValue(diceValue));
+          countDown--;
+          if (countDown <= 0) {
+            clearInterval(diceInterval);
+            if (currentSection.Terning.indexOf(".mp3") > -1 || currentSection.Terning.indexOf(".wav") > -1) {
+              playSound(currentSection.Terning);
+            }
+          }
+        }, 80);
+
+      })
+    }
+
+    function setDiceFace(num) {
+      diceValue = num;
+      let dice = document.getElementById("dice");
+      dice.classList.add(DICE_FACE_CSS_CLASSES[num]);
+    }
+
+    function GenerateNewDiceValue(old) {
+      var nextValue = 0;
+      do {
+        nextValue = Math.floor(Math.random() * 6);
+      } while (old == nextValue)
+      return nextValue;
+    };
+
+
+
+    /// TERNING ---------------------------------
+  </script>
+
+  <script data-display-template="oppgave" type="text/html">
+    <div>
+      <img src="img/{{Bilde/}}" alt="{{Start/}}" usemap="#{{Start/}}" id="imgBackground" /> 
+      [DragMål/] [Nedtelling/] [Terning/] [Handlinger/] [DragAndDrop/] [Bevegelse/] 
+      {{#if Lyd}}
+      <img class="speaker" src="img/hoyttaler.png" alt="Spill instruksjon" id="hoytaler" onclick="playSound('{{Lyd/}}')" /> {{/#if}}
+      {{#if Kamera}}
+      <video id="liveVideo" autoplay></video>
+      <img id="cameraButton" onClick="showVideo()" src="img/camera.png" alt="Slå på kamera" style="left:0;top:0;position:absolute">
+      {{/#if}}
+    </div>
+  </script>
+  <script data-display-template="handling" type="text/html">
+    <div>
+      <img style="left:{{x/}}px;top:{{y/}}px;position:absolute" src="img/{{Bilde/}}" alt="{{Tekst/}}"
+        onclick="{{#if Lagre}}saveState('{{Lagre/}}'){{/#if}};gotoNext('{{Neste/}}'{{#if Lyd}},'{{Lyd/}}'{{/#if}});" />
+    </div>
+  </script>
+
+  <script data-display-template="timer" type="text/html">
+    <div>
+      <img style="left:{{x/}}px;top:{{y/}}px;position:absolute" src="img/{{Bilde/}}" alt="TidTaker"
+        onclick="startTimer({{Tid/}})" />
+    </div>
+  </script>
+
+  <script data-display-template="feedback" type="text/html">
+    <div class="alert {{type/}}  alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="steng">
+        <span aria-hidden="true">&times;</span>
+      </button> {{msg/}}
+    </div>
+  </script>
+
+</body>
+
+</html>

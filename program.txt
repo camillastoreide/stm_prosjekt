@@ -1,0 +1,32 @@
+#Start: Intro
+#Bilde: Bakgrunn.png
+#Bilde: Hugo.png
+#Bilde: usynligKnapp.png
+#Lyd: Intro_del1.m4a, Intro_del2.m4a
+#Handling: Gå til oppgave 1 (oppgave1), usynligKnapp.png, 0,0
+#Slutt:
+
+#Start: oppgave1
+#Bilde: Bakgrunn_Alle.png
+#Bilde: Hugo.png
+#Bilde: H.png
+#Bilde: Grønn_pil.png
+#Bilde: Rød_pil.png
+#Lyd: H.m4a
+#Handling: Gå til neste (oppgave2), riktigPåoppgave1=1, Grønn_pil, 2343,45
+#Handling: Gå til neste (oppgave2), riktigPåoppgave1=0, Rød_pil.png, 2343,80
+#Slutt:
+
+#Start: oppgave2
+#Bilde: Bakgrunn_Alle.png
+#Bilde: Liten_Hugo.png
+#Bilde: Stor_Hugo.png
+#Bilde: Grønn_pil.png
+#Bilde: Rød_pil.png
+#Lyd: Finn_ut hvem_som_er_høyest.m4a
+#Handling: Gå til neste (oppgave3), riktigPåoppgave1=1, Grønn_pil, 2343,45
+#Handling: Gå til neste (oppgave3), riktigPåoppgave1=0, Rød_pil.png, 2343,80
+#Slutt:
+
+
+
