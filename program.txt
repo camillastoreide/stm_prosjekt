@@ -10,11 +10,9 @@
 #Bilde: bakgrunn_alle.png
 #Handling: Hugo, hugo.png, 200, 280
 #Handling: BokstavenH, h_bokstav.png
-#Handling: GronnPil, gronn_pil.png
-#Handling: RodPil, rod_pil.png
 #Lyd: h_bokstav.m4a
-#Handling: Gå til neste (oppgave2), riktigPåoppgave1=1, gronn_pil, 2343,45
-#Handling: Gå til neste (oppgave2), riktigPåoppgave1=0, rod_pil.png, 2343,80
+#Handling: Gå til neste (oppgave2), riktigPåoppgave1=1, gronn_pil.png, 2343,45
+#Handling: Gå til neste (oppgave2), riktigPåoppgave1=0, oransje_pil.png, 2343,80
 #Slutt:
 
 
@@ -22,11 +20,9 @@
 #Bilde: bakgrunn_alle.png
 #Handling: LitenHugo, liten_hugo.png
 #Handling: StorHugo, stor_hugo.png
-#Handling: GronnPil, gronn_pil.png
-#Handling: RodPil, rod_pil.png
 #Lyd: finn_ut hvem_som_er_hoyest.m4a
 #Handling: Gå til neste (oppgave3), riktigPåoppgave1=1, gronn_pil, 2343,45
-#Handling: Gå til neste (oppgave3), riktigPåoppgave1=0, rod_pil.png, 2343,80
+#Handling: Gå til neste (oppgave3), riktigPåoppgave1=0, oransje_pil.png, 2343,80
 #Slutt:
 
 #Start: oppgave3
