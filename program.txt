@@ -327,7 +327,7 @@
 #DragAlternativ: Kjole, "", kjole.png, "", 800, 400, 1200, 1100, 1
 #DragAlternativ: Joggesko, "", joggesko.png, "", 800, 400, 1200, 1100, 1
 #DragMål: Hugo, hugo.png, 900, 315
-#Lyd: regn_toy.m4a
+#Lyd: regne_drabort.m4a
 #Handling: Gå til neste (oppgave14riktig), riktigPåoppgave14=fullstjerne.png, gronn_pil.png, 1750,400
 #Handling: Gå til neste (oppgave14feil), riktigPåoppgave14=tomstjerne.png, oransje_pil.png, 1750,600
 #Slutt: 
@@ -358,7 +358,7 @@
 #DragMål: Hugo, hugo.png, 900, 315
 #Handling: Gå til neste (oppgave15riktig), riktigPåoppgave15=fullstjerne.png, gronn_pil.png, 1750,400
 #Handling: Gå til neste (oppgave15feil), riktigPåoppgave15=tomstjerne.png, oransje_pil.png, 1750,600
-#Lyd: dyr_i_skogen.m4a
+#Lyd: dyr_norge_dra.m4a
 #Slutt:
 
 #Start: oppgave15riktig
