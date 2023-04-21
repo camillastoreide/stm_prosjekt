@@ -365,7 +365,7 @@
 #Bilde: bakgrunn_alle.png
 #Handling: Bie, bie.png, 1850, 25
 #Handling: Hugo, hugo.png, 900, 315
-#Lyd: riktig_svar_wow.m4a
+#Lyd: riktig_svar_hurra.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave16
 
@@ -394,7 +394,7 @@
 #Handling: Hugo, hugo.png, 200, 314
 #Handling: JenteSomLer, jente_som_ler.png, 800, 250
 #Handling: GuttSomLer, gutt_som_ler.png, 1300, 500
-#Lyd: riktig_svar_hurra.m4a
+#Lyd: riktig_svar_wow.m4a
 #Nedtelling:JA, 0.6
 #Neste: Avslutning
 
