@@ -6,7 +6,7 @@
 
 #Start: Intro
 #Bilde: Bakgrunn.png
-#Lyd: intro_del1.m4a, intro_del2.m4a
+#Lyd: Intro_del1.m4a, Intro_del2.m4a
 #Handling: Hugo, Hugo.png, 200, 295
 #Handling: Gå til oppgave 1 (oppgave1), usynligKnapp.png, 0,0
 #Slutt:
@@ -74,7 +74,7 @@
 #DragAlternativ: GrontEple, "", gront_eple.png, "", 800, 400, 1200, 1100, 3
 #DragAlternativ: BlaattEple, "", blaatt_eple.png, "", 800, 400, 1200, 1100, 3
 #DragMål: Hugo, Hugo.png, 900, 315
-#Lyd: epler.m4a
+#Lyd: Epler.m4a
 #Handling: Gå til neste (oppgave3riktig), riktig3=fullstjerne.png, gronn_pil.png, 1750,400
 #Handling: Gå til neste (oppgave3feil), riktig3=tomstjerne.png, oransje_pil.png, 1750,600
 #Slutt:
