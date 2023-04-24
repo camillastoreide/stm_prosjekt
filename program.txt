@@ -1,20 +1,20 @@
 #Start: Start
-#Bilde: bakgrunn.png
-#Handling: Hugo, hugo.png, 200, 295
+#Bilde: Bakgrunn.png
+#Handling: Hugo, Hugo.png, 200, 295
 #Handling: Gå til Intro (Intro), usynligKnapp.png, 0,0
 #Slutt:
 
 #Start: Intro
-#Bilde: bakgrunn.png
+#Bilde: Bakgrunn.png
 #Lyd: intro_del1.m4a, intro_del2.m4a
-#Handling: Hugo, hugo.png, 200, 295
+#Handling: Hugo, Hugo.png, 200, 295
 #Handling: Gå til oppgave 1 (oppgave1), usynligKnapp.png, 0,0
 #Slutt:
 
 #Start: oppgave1
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: BokstavenH, h_bokstav.png, 900,270
 #Lyd: h_bokstav.m4a
 #Handling: Gå til neste (oppgave1riktig), "", riktig1=fullstjerne.png, gronn_pil.png, riktig_svar_hurra.m4a, 1750,400
@@ -22,81 +22,81 @@
 #Slutt:
 
 #Start: oppgave1riktig
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: BokstavenH, h_bokstav.png, 900,270
 #Lyd: riktig_svar_hurra.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave2
 
 #Start: oppgave1feil
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: BokstavenH, h_bokstav.png, 900,270
 #Lyd: feil_svar_jaja.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave2
 
 #Start: oppgave2
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 400, 314
-#Handling: LitenHugo, liten_hugo.png, 1000, 915
+#Handling: Hugo, Hugo.png, 400, 314
+#Handling: LitenHugo, Liten_Hugo.png, 1000, 915
 #Lyd: finn_ut hvem_som_er_hoyest.m4a
 #Handling: Gå til neste (oppgave2riktig), riktig2=fullstjerne.png, gronn_pil.png, 1750,400
 #Handling: Gå til neste (oppgave2feil), riktig2=tomstjerne.png, oransje_pil.png, 1750,600
 #Slutt:
 
 #Start: oppgave2riktig
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 400, 314
-#Handling: LitenHugo, liten_hugo.png, 1000, 915
+#Handling: Hugo, Hugo.png, 400, 314
+#Handling: LitenHugo, Liten_Hugo.png, 1000, 915
 #Lyd: riktig_svar_jippi.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave3
 
 #Start: oppgave2feil
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 400, 314
-#Handling: LitenHugo, liten_hugo.png, 1000, 915
+#Handling: Hugo, Hugo.png, 400, 314
+#Handling: LitenHugo, Liten_Hugo.png, 1000, 915
 #Lyd: feil_svar_synd.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave3
 
 #Start: oppgave3
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
 #DragAlternativ: RodtEple, Hugo, rodt_eple.png, "", 800, 400, 1200, 1100, 4
 #DragAlternativ: GrontEple, "", gront_eple.png, "", 800, 400, 1200, 1100, 3
 #DragAlternativ: BlaattEple, "", blaatt_eple.png, "", 800, 400, 1200, 1100, 3
-#DragMål: Hugo, hugo.png, 900, 315
+#DragMål: Hugo, Hugo.png, 900, 315
 #Lyd: epler.m4a
 #Handling: Gå til neste (oppgave3riktig), riktig3=fullstjerne.png, gronn_pil.png, 1750,400
 #Handling: Gå til neste (oppgave3feil), riktig3=tomstjerne.png, oransje_pil.png, 1750,600
 #Slutt:
 
 #Start: oppgave3riktig
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 900, 315
+#Handling: Hugo, Hugo.png, 900, 315
 #Lyd: riktig_svar_wow.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave4
 
 #Start: oppgave3feil
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 900, 315
+#Handling: Hugo, Hugo.png, 900, 315
 #Lyd: feil_svar_uffda.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave4
 
 #Start: oppgave4
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
 #Handling: VideoHugo, videohugohopper.gif, 500, 315
 #Lyd: hoppe_fremover.m4a
@@ -105,7 +105,7 @@
 #Slutt:
 
 #Start: oppgave4riktig
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
 #Handling: VideoHugo, videohugohopper.gif, 500, 315
 #Lyd: riktig_svar_hurra.m4a
@@ -113,7 +113,7 @@
 #Neste: oppgave5
 
 #Start: oppgave4feil
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
 #Handling: VideoHugo, videohugohopper.gif, 500, 315
 #Lyd: feil_svar_jaja.m4a
@@ -121,9 +121,9 @@
 #Neste: oppgave5
 
 #Start: oppgave5
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 315
+#Handling: Hugo, Hugo.png, 200, 315
 #Lyd: firkant.m4a
 #Handling: Gå til neste (oppgave6), riktig5=fullstjerne.png, firkant.png, 1400, 750
 #Handling: Gå til neste (oppgave6), riktig5=tomstjerne.png, trekant.png, 950, 350
@@ -132,9 +132,9 @@
 #Slutt:
 
 #Start: oppgave6
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: Frosk, frosk_hoppe.png, 1000, 750
 #Lyd: frosk_hoppe.m4a
 #Handling: Gå til neste (oppgave6riktig), riktig6=fullstjerne.png, gronn_pil.png, 1750,400
@@ -142,56 +142,56 @@
 #Slutt: 
 
 #Start: oppgave6riktig
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: Frosk, frosk_hoppe.png, 1000, 750
 #Lyd: riktig_svar_jippi.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave7
 
 #Start: oppgave6feil
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: Frosk, frosk_hoppe.png, 1000, 750
 #Lyd: feil_svar_synd.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave7
 
 #Start: oppgave7
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
 #DragAlternativ: Polse, "", polse.png, "", 800, 400, 1200, 1100, 1
 #DragAlternativ: Brod, "", brod.png, "", 800, 400, 1200, 1100, 1
 #DragAlternativ: Banan, Hugo, banan.png, "", 800, 400, 1200, 1100, 1
 #DragAlternativ: Druer, Hugo, druer.png, "", 800, 400, 1200, 1100, 1
-#DragMål: Hugo, hugo.png, 900, 315
+#DragMål: Hugo, Hugo.png, 900, 315
 #Lyd: frukt_dra.m4a
 #Handling: Gå til neste (oppgave7riktig), riktig7=fullstjerne.png, gronn_pil.png, 1750,400
 #Handling: Gå til neste (oppgave7feil), riktig7=tomstjerne.png, oransje_pil.png, 1750,600
 #Slutt:
 
 #Start: oppgave7riktig
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 900, 315
+#Handling: Hugo, Hugo.png, 900, 315
 #Lyd: riktig_svar_wow.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave8
 
 #Start: oppgave7feil
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 900, 315
+#Handling: Hugo, Hugo.png, 900, 315
 #Lyd: feil_svar_uffda.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave8
 
 #Start: oppgave8
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Lyd: dyrelyder.m4a, bjeffing.m4a
 #Handling: Gå til neste (oppgave9), riktig8=fullstjerne.png, hund.png, 1400, 750
 #Handling: Gå til neste (oppgave9), riktig8=tomstjerne.png, katt.png, 950, 320
@@ -200,9 +200,9 @@
 #Slutt:
 
 #Start: oppgave9
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Lyd: sirkel.m4a
 #Handling: SirkelHode, sirkel_hode.png, 900, 315
 #Handling: Gå til neste (oppgave9riktig), riktig9=fullstjerne.png, gronn_pil.png, 1750,400
@@ -210,27 +210,27 @@
 #Slutt:
 
 #Start: oppgave9riktig
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: SirkelHode, sirkel_hode.png, 900, 315
 #Lyd: riktig_svar_hurra.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave10
 
 #Start: oppgave9feil
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: SirkelHode, sirkel_hode.png, 900, 315
 #Lyd: feil_svar_jaja.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave10
 
 #Start: oppgave10
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: Hand, hand.png, 700, 315
 #Lyd: hand.m4a
 #Handling: Gå til neste (oppgave10riktig), riktig10=fullstjerne.png, gronn_pil.png, 1750,400
@@ -238,27 +238,27 @@
 #Slutt:
 
 #Start: oppgave10riktig
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: Hand, hand.png, 700, 315
 #Lyd: riktig_svar_jippi.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave11
 
 #Start: oppgave10feil
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: Hand, hand.png, 700, 315
 #Lyd: feil_svar_synd.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave11
 
 #Start: oppgave11
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: Gå til neste (oppgave12), riktig11=fullstjerne.png, mus.png, 1200, 350
 #Handling: Gå til neste (oppgave12), riktig11=fullstjerne.png, brus.png, 1000, 580
 #Handling: Gå til neste (oppgave12), riktig11=tomstjerne.png, bil.png, 1400, 750
@@ -266,7 +266,7 @@
 #Slutt:
 
 #Start: oppgave12
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
 #Handling: SintHugo, sint_hugo.png, 650, 235
 #Lyd: sint.m4a
@@ -275,7 +275,7 @@
 #Slutt:
 
 #Start: oppgave12riktig
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
 #Handling: SintHugo, sint_hugo.png, 650, 235
 #Lyd: riktig_svar_wow.m4a
@@ -283,7 +283,7 @@
 #Neste: oppgave13
 
 #Start: oppgave12feil
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
 #Handling: SintHugo, sint_hugo.png, 650, 235
 #Lyd: feil_svar_uffda.m4a
@@ -291,9 +291,9 @@
 #Neste: oppgave13
 
 #Start: oppgave13
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: BokstavenO, bokstaven_o.png, 950, 400
 #Lyd: bokstaven_o.m4a
 #Handling: Gå til neste (oppgave14), riktig13=fullstjerne.png, gronn_pil.png, 1750,400
@@ -301,86 +301,86 @@
 #Slutt:
 
 #Start: oppgave13riktig
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: BokstavenO, bokstaven_o.png, 950, 400
 #Lyd: riktig_svar_hurra.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave14
 
 #Start: oppgave13feil
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: BokstavenO, bokstaven_o.png, 950, 400
 #Lyd: feil_svar_jaja.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave14
 
 #Start: oppgave14
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
 #Handling: SkyMedRegn, sky_med_regn.png, 1100, 100
 #DragAlternativ: GulRegnjakke, Hugo, regnjakke.png, "", 800, 400, 1200, 1100, 1
 #DragAlternativ: Stovler, Hugo, stovler.png, "", 800, 400, 1200, 1100, 1
 #DragAlternativ: Kjole, "", kjole.png, "", 800, 400, 1200, 1100, 1
 #DragAlternativ: Joggesko, "", joggesko.png, "", 800, 400, 1200, 1100, 1
-#DragMål: Hugo, hugo.png, 900, 315
+#DragMål: Hugo, Hugo.png, 900, 315
 #Lyd: regne_drabort.m4a
 #Handling: Gå til neste (oppgave14riktig), riktig14=fullstjerne.png, gronn_pil.png, 1750,400
 #Handling: Gå til neste (oppgave14feil), riktig14=tomstjerne.png, oransje_pil.png, 1750,600
 #Slutt: 
 
 #Start: oppgave14riktig
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 900, 315
+#Handling: Hugo, Hugo.png, 900, 315
 #Lyd: riktig_svar_jippi.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave15
 
 #Start: oppgave14feil
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 900, 315
+#Handling: Hugo, Hugo.png, 900, 315
 #Lyd: feil_svar_synd.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave15
 
 #Start: oppgave15
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
 #DragAlternativ: Love, "", love.png, "", 800, 400, 1200, 1100, 1
 #DragAlternativ: Delfin, "", delfin.png, "", 800, 400, 1200, 1100, 1
 #DragAlternativ: Elg, Hugo, elg.png, "", 800, 400, 1200, 1100, 1
 #DragAlternativ: Rev, Hugo, rev.png, "", 800, 400, 1200, 1100, 1
-#DragMål: Hugo, hugo.png, 900, 315
+#DragMål: Hugo, Hugo.png, 900, 315
 #Handling: Gå til neste (oppgave15riktig), riktig15=fullstjerne.png, gronn_pil.png, 1750,400
 #Handling: Gå til neste (oppgave15feil), riktig15=tomstjerne.png, oransje_pil.png, 1750,600
 #Lyd: dyr_norge_dra.m4a
 #Slutt:
 
 #Start: oppgave15riktig
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 900, 315
+#Handling: Hugo, Hugo.png, 900, 315
 #Lyd: riktig_svar_hurra.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave16
 
 #Start: oppgave15feil
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 900, 315
+#Handling: Hugo, Hugo.png, 900, 315
 #Lyd: feil_svar_uffda.m4a
 #Nedtelling:JA, 0.6
 #Neste: oppgave16
 
 #Start: oppgave16
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: JenteSomLer, jente_som_ler.png, 800, 250
 #Handling: GuttSomLer, gutt_som_ler.png, 1300, 500
 #Handling: Gå til neste (oppgave16riktig), riktig16=fullstjerne.png, gronn_pil.png, 1750,400
@@ -389,9 +389,9 @@
 #Slutt:
 
 #Start: oppgave16riktig
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: JenteSomLer, jente_som_ler.png, 800, 250
 #Handling: GuttSomLer, gutt_som_ler.png, 1300, 500
 #Lyd: riktig_svar_wow.m4a
@@ -399,9 +399,9 @@
 #Neste: Avslutning
 
 #Start: oppgave16feil
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: Hugo, hugo.png, 200, 314
+#Handling: Hugo, Hugo.png, 200, 314
 #Handling: JenteSomLer, jente_som_ler.png, 800, 250
 #Handling: GuttSomLer, gutt_som_ler.png, 1300, 500
 #Lyd: feil_svar_jaja.m4a
@@ -409,7 +409,7 @@
 #Neste: Avslutning
 
 #Start: Avslutning
-#Bilde: bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
 #Handling: poeng1, [riktig1],250, 300
 #Handling: poeng2, [riktig2],450, 300
