@@ -411,21 +411,21 @@
 #Start: Avslutning
 #Bilde: bakgrunn_alle.png
 #Handling: Bie, bie.png, 1850, 25
-#Handling: poeng1, [riktig1],100, 250
-#Handling: poeng2, [riktig2],130, 250
-#Handling: poeng3, [riktig3],160, 250
-#Handling: poeng4, [riktig4],190, 250
-#Handling: poeng5, [riktig5],220, 250
-#Handling: poeng6, [riktig6],250, 250
-#Handling: poeng7, [riktig7],280, 250
-#Handling: poeng8, [riktig8],310, 250
-#Handling: poeng9, [riktig9],340, 250
-#Handling: poeng10, [riktig10],370, 250
-#Handling: poeng11, [riktig11],400, 250
-#Handling: poeng12, [riktig12],430, 250
-#Handling: poeng13, [riktig13],460, 250
-#Handling: poeng14, [riktig14],490, 250
-#Handling: poeng15, [riktig15],520, 250
-#Handling: poeng16, [riktig16],550, 250
+#Handling: poeng1, [riktig1],250, 300
+#Handling: poeng2, [riktig2],450, 300
+#Handling: poeng3, [riktig3],650, 300
+#Handling: poeng4, [riktig4],850, 300
+#Handling: poeng5, [riktig5],1050, 300
+#Handling: poeng6, [riktig6],1250, 300
+#Handling: poeng7, [riktig7],1450, 300
+#Handling: poeng8, [riktig8],1650, 300
+#Handling: poeng9, [riktig9],250, 600
+#Handling: poeng10, [riktig10],450, 600
+#Handling: poeng11, [riktig11],650, 600
+#Handling: poeng12, [riktig12],850, 600
+#Handling: poeng13, [riktig13],1050, 600
+#Handling: poeng14, [riktig14],1250, 600
+#Handling: poeng15, [riktig15],1450, 600
+#Handling: poeng16, [riktig16],1650, 600
 #Slutt: 
 
