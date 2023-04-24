@@ -132,7 +132,7 @@
 #Slutt:
 
 #Start: oppgave6
-#Bilde: Bakgrunn_alle.png
+#Bilde: Bakgrunn_Alle.png
 #Handling: Bie, bie.png, 1850, 25
 #Handling: Hugo, Hugo.png, 200, 314
 #Handling: Frosk, frosk_hoppe.png, 1000, 750
